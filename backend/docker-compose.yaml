@@ -1,0 +1,23 @@
+version: "3.5"
+services:
+  database:
+    image: postgis/postgis
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: events
+      DB_HOSTNAME: database-1
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+    - "5432:5432"
+  app:
+    build: .
+    ports:
+      - 3030:3030
+    volumes: 
+      - .:/usr/app
+    links:
+      - database
+    depends_on:
+      - database
