@@ -1,5 +1,5 @@
 import { EventInterface } from '../interfaces';
-import EventRepository from '../repository/eventRepository';
+import EventRepository from '../repository/EventRepository';
 
 export default class EventValidator {
     static hasAllProperties(event: EventInterface) {
@@ -9,7 +9,8 @@ export default class EventValidator {
 
     static async eventAlreadyExists(event: EventInterface) {
         const repository = new EventRepository();
-        const hasEvent = await repository.find(event) ? true : false;
-        return hasEvent;
+        console.log(repository);
+        //const hasEvent = await repository.find(event) ? true : false;
+        return !!event;
     }
 }
