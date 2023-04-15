@@ -23,7 +23,6 @@
         "camelcase": "warn",
         "quotes": [ "warn", "single" ],
         "complexity": "error",
-        "no-duplicate-imports": "error"
-        
+        "no-duplicate-imports": "error"        
     }
 }
