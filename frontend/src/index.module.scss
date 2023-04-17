@@ -1,0 +1,14 @@
+$font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+$page-color: #09425E;
+$default-font-color: #fff;
+
+
+body {
+  margin: 0;
+  font-family: $font-stack;
+  background-color: $page-color;
+  color: $default-font-color;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
