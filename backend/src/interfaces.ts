@@ -1,8 +1,15 @@
 interface EventInterface {
-    id: number,
+    id?: number,
     name: string,
+    date: Date,
     city: string,
-    position: object,
+    position: Point,
 }
 
-export { EventInterface };
+interface Point {
+    type: 'Point',
+    coordinates: [number, number],
+    crs?: object,
+}
+
+export { EventInterface, Point };

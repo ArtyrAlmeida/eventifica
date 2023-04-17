@@ -11,6 +11,6 @@ export default class EventValidator {
         const repository = new EventRepository();
         console.log(repository);
         //const hasEvent = await repository.find(event) ? true : false;
-        return !!event;
+        return !event;
     }
 }
