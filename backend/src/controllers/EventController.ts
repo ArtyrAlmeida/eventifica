@@ -19,7 +19,6 @@ export default class EventController {
     find = async (req: Request, res: Response) => {
         try {
             const response = await this.service.find();
-
             res.status(200).json(response);
         } catch (error) {
             res.status(400).json({ error: 'Não foi possível completar sua requisição' });
@@ -32,7 +31,6 @@ export default class EventController {
 
         try {
             const response = await this.service.findOne(+id);
-
             res.status(200).json(response);
         } catch (error) {
             const requestError = error as RequestError;

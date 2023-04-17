@@ -8,7 +8,6 @@ const db = new Sequelize({
     password: process.env.DB_PASSWORD as string,
     host: process.env.DB_HOST as string,
     models: [path.join(__dirname, '../models')],
-
 });
 
 const connectDb = async () => {
