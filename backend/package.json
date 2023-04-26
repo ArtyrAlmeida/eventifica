@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ArtyrAlmeida/eventifica#readme",
   "devDependencies": {
+    "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
@@ -30,6 +31,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "pg": "^8.10.0",
     "sequelize": "^6.31.0",
