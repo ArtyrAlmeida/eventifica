@@ -1,15 +1,17 @@
 import React from 'react';
 import { EventList } from './components/Events/EventList/EventList';
 import Map from './components/Map/Map';
+import { MarkerProvider } from './contexts/marker-provider';
 
 function App() {
   return (
-    <div>
+    <MarkerProvider>
       <div>
-        <EventList/>
-        <Map/>
+        <div>
+          <Map/>
+        </div>
       </div>
-    </div>
+    </MarkerProvider>
   );
 }
 
