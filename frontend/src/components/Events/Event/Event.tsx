@@ -1,21 +1,24 @@
-import React from 'react';
-import { Card } from '../../Ui/Card/Card';
+import React, {Fragment} from 'react';
 import classes from './Event.module.scss';
+import mapIcon from '../../../assets/icons/MapMarker.png';
 
 const Event = (props: any) => {
     return (
-    <Card>
-        <div>
-            <h3>{props.name}</h3>
-            <p>{props.city}</p>
-            <p>{props.date}</p>
+    <Fragment>
+        <div className={classes.eventContainer}>
+            <div>
+                <h3>Evento: {props.name}</h3>
+                <p>Cidade: {props.city}</p>
+                <p>Data: {new Date(props.date).toLocaleString('pt-br', { year: 'numeric', month: 'long', day: '2-digit' })}</p>
+            </div>
+            <div className={classes.location}>
+                <img className={classes['location-icon']} src={mapIcon}/>
+                <p>{props.position.coordinates[0].toFixed(4)}</p>
+                <p>{props.position.coordinates[1].toFixed(4)}</p>
+            </div>
         </div>
-        <div>
-            <img className={classes['location-icon']} src={'../../../../public/assets/icons/MapMarker.png'}/>
-            <p>{props.position.coordinates[0]}</p>
-            <p>{props.position.coordinates[1]}</p>
-        </div>
-    </Card>
+        <hr></hr>
+    </Fragment>
     );
 };
 

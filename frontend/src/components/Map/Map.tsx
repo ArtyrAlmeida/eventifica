@@ -9,7 +9,7 @@ import { addEvent } from '../../api/addEvent';
 import { useMarkerContext } from '../../hooks/useMarkerContext';
 
 const containerStyle = {
-  width: '600px',
+  width: '70vw',
   height: '100vh'
 };
 

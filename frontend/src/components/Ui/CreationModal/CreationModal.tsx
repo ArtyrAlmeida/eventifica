@@ -1,7 +1,7 @@
 import React, { useRef, Fragment} from 'react';
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
-import classes from './CreationModal.module.scss'
+import classes from './CreationModal.module.scss';
 
 const CreationModal = (props:any) => {
 
@@ -12,7 +12,7 @@ const CreationModal = (props:any) => {
     const handleCancel= () => {
         props.onFormCancel();
     }
-    const handleSubmit= (e:any) => {
+    const handleSubmit = (e:any) => {
         e.preventDefault();
         const eventData = {
             name: nomeRef.current.value,
@@ -20,6 +20,9 @@ const CreationModal = (props:any) => {
             date: dataRef.current.value
         };
         props.onSendFormData(eventData);
+        nomeRef.current.value = '';
+        cidadeRef.current.value = '';
+        dataRef.current.value = '';
         console.log(eventData);
     };
 
@@ -27,11 +30,14 @@ const CreationModal = (props:any) => {
         <Fragment>
             <div className={classes.backdrop} onClick={handleCancel}></div>
             <form onSubmit={handleSubmit} className={classes.modal}>
+                <h2>Criar Evento</h2>
                 <Input label={'Nome do Evento'} input={{ type: 'text', id: 'nome' }} ref={nomeRef}/>
                 <Input label={'Cidade'} input={{ type: 'text', id: 'ciadde' }} ref={cidadeRef}/>
                 <Input label={'Data'} input={{ type: 'date', id: 'data' }} ref={dataRef}/>
-                <Button type='button' onCancelModal={handleCancel} text='Cancelar'/>
-                <button type='submit' >Criar Evento</button>
+                <div className={classes.buttons}>
+                    <Button type='button' onCancelModal={handleCancel} text='Cancelar'/>
+                    <button type='submit' >Criar Evento</button>
+                </div>
             </form>
         </Fragment>
     );
