@@ -30,7 +30,7 @@ export default class EventController {
         const { id } = req.params;
 
         try {
-            const response = await this.service.findOne(+id);
+            const response = await this.service.findOne(id);
             res.status(200).json(response);
         } catch (error) {
             const requestError = error as RequestError;

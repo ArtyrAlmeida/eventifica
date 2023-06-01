@@ -1,5 +1,5 @@
 interface EventInterface {
-    id?: number,
+    _id?: string,
     name: string,
     date: Date,
     city: string,

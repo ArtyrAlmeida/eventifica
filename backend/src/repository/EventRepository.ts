@@ -9,17 +9,13 @@ export default class EventRepository {
     }
 
     async find() {
-        const result = await Event.findAll({
-            attributes: ['id', 'name', 'date', 'city', 'position'],
-        });
+        const result = await Event.find();
 
         return result;
     }
 
-    async findOne(id: number) {
-        const result = await Event.findByPk(id, {
-            attributes: ['id', 'name', 'date', 'city', 'position'],
-        });
+    async findOne(id: string) {
+        const result = await Event.findOne({ _id: id });
         
         return result;
     }

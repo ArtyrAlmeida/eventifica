@@ -1,23 +1,34 @@
-import { EventInterface, Point } from '../interfaces';
-import { AllowNull, Column, DataType, Model, Table } from 'sequelize-typescript';
+import mongoose from "mongoose";
+import { EventInterface } from "../interfaces";
 
-@Table
-class Event extends Model<EventInterface> implements EventInterface {
-    @AllowNull(false)
-    @Column(DataType.STRING)
-    name!: string;
+const Schema = mongoose.Schema;
 
-    @AllowNull(false)
-    @Column(DataType.STRING)
-    city!: string;
+const eventSchema = new Schema<EventInterface>({
+    name: {
+        type: String,
+        required: true
+    },
+    position: {
+        type: {
+            type: String, // Don't do `{ location: { type: String } }`
+            enum: ['Point'], // 'location.type' must be 'Point'
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        required: true
+    }
+});
 
-    @AllowNull(false)
-    @Column(DataType.DATE)
-    date!: Date;
-
-    @AllowNull(false)
-    @Column(DataType.GEOMETRY('POINT'))
-    position!: Point;
-}
+const Event = mongoose.model("Events", eventSchema);
 
 export default Event;

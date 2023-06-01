@@ -25,7 +25,7 @@ export default class EventService {
         return response;
     };
 
-    findOne = async (id: number) => {
+    findOne = async (id: string) => {
         const response = await this.repository.findOne(id);
 
         return response;

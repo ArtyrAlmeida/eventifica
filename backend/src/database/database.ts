@@ -1,21 +1,16 @@
 import path from 'path';
-import { Sequelize } from 'sequelize-typescript';
+import { connect } from 'mongoose';
 
-const db = new Sequelize({
-    dialect: 'postgres',
-    database: process.env.DB_NAME as string,
-    username: process.env.DB_USER as string,
-    password: process.env.DB_PASSWORD as string,
-    host: process.env.DB_HOST as string,
-    models: [path.join(__dirname, '../models')],
-});
+const { DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME } = process.env;
+
+const connectionUri = `mongodb://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=admin`;
+console.log(connectionUri);
+
 
 const connectDb = async () => {
-    await db.sync();
-    db.authenticate()
-        .then(() => console.log('Database ssuccessfully connected'))
-        .catch(error => console.log('Could not connect to database: ', error)
-        );
+    connect(connectionUri)
+        .then(() => console.log('Connected to db'))
+        .catch((err) => console.error('Could not connect: ', err));;
 };
 
 export default connectDb;

@@ -1,23 +1,22 @@
 version: "3.5"
 services:
   database:
-    image: postgis/postgis
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: events
-      DB_HOSTNAME: database-1
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data
+    image: mongo
+    container_name: db
     ports:
-    - "5432:5432"
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: eventifica
+      MONGO_INITDB_ROOT_PASSWORD: 123
+      MONGO_INITDB_DATABASE: events 
   app:
     build: .
     environment:
+      DB_HOST: database
+      DB_PORT: 27017
       DB_NAME: events
-      DB_USER: postgres
-      DB_PASSWORD: 1234 
-      DB_HOST: database-1
+      DB_USER: eventifica
+      DB_PASS: 123
     ports:
       - 3030:3030
     volumes: 
