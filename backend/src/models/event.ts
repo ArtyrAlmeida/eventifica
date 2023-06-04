@@ -29,6 +29,8 @@ const eventSchema = new Schema<EventInterface>({
     }
 });
 
+eventSchema.index({ name: 'text', city: 'text' }, { default_language: 'pt' })
+
 const Event = mongoose.model("Events", eventSchema);
 
 export default Event;

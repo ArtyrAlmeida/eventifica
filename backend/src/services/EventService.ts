@@ -26,8 +26,20 @@ export default class EventService {
     };
 
     findOne = async (id: string) => {
+        if (!EventValidator.isValidId(id)) {
+            throw new RequestError('O id provido é inválido', 400);
+        }
         const response = await this.repository.findOne(id);
 
         return response;
     };
+
+    findByText = async (text: string) => {
+        if (!text ) {
+            throw new RequestError('Um texto deve ser providenciado para a pesquisa', 400);
+        }
+        const response = await this.repository.findByText(text);
+
+        return response;
+    }
 }

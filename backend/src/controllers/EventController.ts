@@ -1,6 +1,7 @@
 import EventService from '../services/EventService';
 import RequestError from '../exceptions/RequestError';
 import { Request, Response } from 'express';
+import { log } from 'console';
 
 export default class EventController {
     private service = new EventService();
@@ -31,6 +32,18 @@ export default class EventController {
 
         try {
             const response = await this.service.findOne(id);
+            res.status(200).json(response);
+        } catch (error) {
+            const requestError = error as RequestError;
+            res.status(requestError.code || 400).json({ error: requestError.message });
+        }
+    };
+
+    findByText = async (req: Request, res: Response) => {
+        const { text } = req.params;
+        
+        try {
+            const response = await this.service.findByText(text);
             res.status(200).json(response);
         } catch (error) {
             const requestError = error as RequestError;

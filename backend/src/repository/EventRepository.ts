@@ -19,4 +19,10 @@ export default class EventRepository {
         
         return result;
     }
+
+    async findByText(text: string) {
+        const result = await Event.find({ $text: { $search: text } });
+
+        return result;
+    }
 }
