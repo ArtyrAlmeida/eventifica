@@ -13,16 +13,17 @@ function EventReducer(state, action) {
         events: [action.payload, ...state.events],
       };
     case "DELETE_EVENT":
-        return {
-            events: state.events.filter((exp) => exp._id !== action.payload._id)
-        };
+      console.log("state: ",state.events)
+      console.log("payload: ",action.payload)
+      return {
+        events: state.events.filter((event) => event._id !== action.payload)
+      };
     default: return state
   }
 }
 
 function EventContextProvider({ children }) {
   const [state, dispatch] = useReducer(EventReducer, { events: null });
-  console.log("State: ",state)
 
   return <EventContext.Provider value={{...state,dispatch}}>
     {children}

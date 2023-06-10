@@ -3,6 +3,7 @@ import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { getEventInfo } from '../../api/getEvent'
 import { addEvent } from '../../api/addEvent';
 import { Modal } from '../Modal/Modal';
+import { useEventContext } from '../../hooks/useEventContext';
 
 const containerStyle = {
   width: '50%',
@@ -21,16 +22,15 @@ const Map = () => {
   })
 
   const [map, setMap] = React.useState(null)
-  const [markers, setMarkers] = useState([])
   const [currentPoint, setCurrentPoint] = useState();
   const [isModalActive, setIsModalActive] = useState(false);
+  const { events, dispatch } = useEventContext();
 
-  console.log(markers)
   useEffect(()=> {
     getEventInfo().then((points) => {
-      setMarkers(points)
+      dispatch({type:"SET_EVENT", payload: points})
     });
-  }, [map]);
+  }, [dispatch,map]);
 
   const handleClick = (e) => {
     const pointData = {
@@ -51,10 +51,7 @@ const Map = () => {
     }
 
     const response = await addEvent(eventMarker);
-    setMarkers((previousMarkers) => {
-      return [...previousMarkers,eventMarker]
-    });
-    console.log(response);
+    dispatch({type: "CREATE_EVENT", payload: response})
   }
 
   const setInnactivaModal = () => {
@@ -69,8 +66,7 @@ const Map = () => {
             zoom={16}
             onClick={handleClick}
           >
-            { markers && markers.map(marker => {
-              console.log("marker: ", marker)
+            { events && events.map(marker => {
               return (
                 <Marker key={Math.random()} position={{lat: marker.position.coordinates[0], lng: marker.position.coordinates[1]}}
                   title={marker.name}/>

@@ -7,8 +7,8 @@ const Event = (props) => {
     const { dispatch } = useEventContext();
 
     const handleDelete = async () => {
-        const response = await deleteEvent(props.id)
-        dispatch({type: "DELETE_EVENT", payload: response})
+        const response = await deleteEvent(props.eventID)
+        dispatch({type: "DELETE_EVENT", payload: props.eventID})
     }
 
     const handleUpdate = async () => {
