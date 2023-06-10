@@ -25,4 +25,16 @@ export default class EventRepository {
 
         return result;
     }
+
+    async updateOne(id: string, payload: object) {
+        const result = await Event.updateOne({ _id: id }, { $set: payload });
+
+        return result;
+    }
+
+    async deleteOne(id: string) {
+        const result = await Event.deleteOne({ _id: id });
+
+        return result;
+    }
 }

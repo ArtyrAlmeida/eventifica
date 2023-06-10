@@ -1,7 +1,6 @@
 import EventService from '../services/EventService';
 import RequestError from '../exceptions/RequestError';
 import { Request, Response } from 'express';
-import { log } from 'console';
 
 export default class EventController {
     private service = new EventService();
@@ -44,6 +43,32 @@ export default class EventController {
         
         try {
             const response = await this.service.findByText(text);
+            res.status(200).json(response);
+        } catch (error) {
+            const requestError = error as RequestError;
+            res.status(requestError.code || 400).json({ error: requestError.message });
+        }
+    };
+
+    updateOne = async (req: Request, res: Response) => {
+        const { id } = req.params;
+        const payload = req.body;
+        
+        try {
+            const response = await this.service.updateOne(id, payload);
+            res.status(200).json(response);
+        } catch (error) {
+            const requestError = error as RequestError;
+            res.status(requestError.code || 400).json({ error: requestError.message });
+        }
+    };
+
+    deleteOne = async (req: Request, res: Response) => {
+        const { id } = req.params;
+        const { payload } = req.body;
+        
+        try {
+            const response = await this.service.deleteOne(id);
             res.status(200).json(response);
         } catch (error) {
             const requestError = error as RequestError;

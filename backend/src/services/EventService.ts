@@ -42,4 +42,24 @@ export default class EventService {
 
         return response;
     }
+
+    updateOne = async (id: string, payload: object) => {
+        if (!EventValidator.isValidId(id)) {
+            throw new RequestError('O id provido é inválido', 400);
+        }
+
+        const response = await this.repository.updateOne(id, payload);
+
+        return response;
+    }
+
+    deleteOne = async (id:string) => {
+        if (!EventValidator.isValidId(id)) {
+            throw new RequestError('O id provido é inválido', 400);
+        }
+
+        const response = await this.repository.deleteOne(id);
+
+        return response;
+    }
 }
