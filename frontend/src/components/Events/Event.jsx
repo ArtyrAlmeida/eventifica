@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import { deleteEvent } from '../../api/deleteEvent';
 import { useEventContext } from '../../hooks/useEventContext';
+import { Link, Navigate} from 'react-router-dom';
 
 const Event = (props) => {
 
@@ -9,10 +10,6 @@ const Event = (props) => {
     const handleDelete = async () => {
         const response = await deleteEvent(props.eventID)
         dispatch({type: "DELETE_EVENT", payload: props.eventID})
-    }
-
-    const handleUpdate = async () => {
-        console.log("teste")
     }
 
     return (
@@ -31,9 +28,11 @@ const Event = (props) => {
             <span onClick={handleDelete}>
                 Deletar
             </span>
-            <span onClick={handleUpdate}>
-                Atualizar
-            </span>
+            <Link to={'/atualizarEventos'} state={{event: props}}>
+                <span>
+                    Atualizar
+                </span>
+            </Link>
             </div>
         </div>
         <hr></hr>

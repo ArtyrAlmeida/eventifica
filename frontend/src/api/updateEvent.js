@@ -1,5 +1,5 @@
-const addEvent = async (event) => {
-    const response = await fetch(`http://localhost:3030/events/${event}`, {
+const updateEvent = async (event) => {
+    const response = await fetch(`http://localhost:3030/events/${event._id}`, {
         method: 'PATCH',
         body: JSON.stringify(event),
         headers: {
@@ -15,4 +15,4 @@ const addEvent = async (event) => {
     return null;
 };
 
-export { addEvent };
+export { updateEvent };

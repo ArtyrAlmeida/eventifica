@@ -13,8 +13,6 @@ function EventReducer(state, action) {
         events: [action.payload, ...state.events],
       };
     case "DELETE_EVENT":
-      console.log("state: ",state.events)
-      console.log("payload: ",action.payload)
       return {
         events: state.events.filter((event) => event._id !== action.payload)
       };
