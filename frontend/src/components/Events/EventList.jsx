@@ -3,6 +3,8 @@ import { getEventInfo } from '../../api/getEvent';
 import { Event } from "./Event";
 import { useEventContext } from '../../hooks/useEventContext';
 
+import './EventList.css';
+
 const EventList = () => {
 
     const { events, dispatch } = useEventContext();
@@ -14,14 +16,15 @@ const EventList = () => {
     }, [dispatch]);
 
     return (
-        <div>
+        <div className='list'>
             {events && events.map((event) => {
                 return (
                     <Event 
                     key={event._id}
                     name={event.name} 
-                    city={event.city} 
-                    date={event.date} 
+                    description={event.description} 
+                    initialDate={event.initialDate}
+                    finalDate={event.finalDate} 
                     position={event.position}
                     eventID={event._id}
                     />

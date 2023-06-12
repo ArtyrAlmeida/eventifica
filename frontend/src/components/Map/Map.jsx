@@ -6,7 +6,7 @@ import { Modal } from '../Modal/Modal';
 import { useEventContext } from '../../hooks/useEventContext';
 
 const containerStyle = {
-  width: '50%',
+  width: '70vw',
   height: '100vh'
 };
 
@@ -59,7 +59,7 @@ const Map = () => {
   }
 
   return isLoaded ? (
-      <div>
+      <div className='mapPos'>
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}

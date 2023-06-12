@@ -19,11 +19,15 @@ const eventSchema = new Schema<EventInterface>({
             required: true
         }
     },
-    city: {
+    description: {
         type: String,
         required: true
     },
-    date: {
+    initialDate: {
+        type: Date,
+        required: true
+    },
+    finalDate: {
         type: Date,
         required: true
     }

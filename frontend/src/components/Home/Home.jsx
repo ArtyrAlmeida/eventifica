@@ -4,10 +4,10 @@ import  Map  from '../Map/Map'
 
 const Home = () => {
     return (
-        <Fragment>
+        <div className="main">
             <EventList/>
             <Map/>
-        </Fragment>
+        </div>
     )
 }
 
