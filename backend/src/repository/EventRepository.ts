@@ -9,18 +9,32 @@ export default class EventRepository {
     }
 
     async find() {
-        const result = await Event.findAll({
-            attributes: ['id', 'name', 'date', 'city', 'position'],
-        });
+        const result = await Event.find();
 
         return result;
     }
 
-    async findOne(id: number) {
-        const result = await Event.findByPk(id, {
-            attributes: ['id', 'name', 'date', 'city', 'position'],
-        });
+    async findOne(id: string) {
+        const result = await Event.findOne({ _id: id });
         
+        return result;
+    }
+
+    async findByText(text: string) {
+        const result = await Event.find({ $text: { $search: text } }, { _id: true, __v: false });
+
+        return result;
+    }
+
+    async updateOne(id: string, payload: object) {
+        const result = await Event.updateOne({ _id: id }, { $set: payload });
+
+        return result;
+    }
+
+    async deleteOne(id: string) {
+        const result = await Event.deleteOne({ _id: id });
+
         return result;
     }
 }

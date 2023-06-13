@@ -25,9 +25,41 @@ export default class EventService {
         return response;
     };
 
-    findOne = async (id: number) => {
+    findOne = async (id: string) => {
+        if (!EventValidator.isValidId(id)) {
+            throw new RequestError('O id provido é inválido', 400);
+        }
         const response = await this.repository.findOne(id);
 
         return response;
     };
+
+    findByText = async (text: string) => {
+        if (!text ) {
+            throw new RequestError('Um texto deve ser providenciado para a pesquisa', 400);
+        }
+        const response = await this.repository.findByText(text);
+
+        return response;
+    }
+
+    updateOne = async (id: string, payload: object) => {
+        if (!EventValidator.isValidId(id)) {
+            throw new RequestError('O id provido é inválido', 400);
+        }
+
+        const response = await this.repository.updateOne(id, payload);
+
+        return response;
+    }
+
+    deleteOne = async (id:string) => {
+        if (!EventValidator.isValidId(id)) {
+            throw new RequestError('O id provido é inválido', 400);
+        }
+
+        const response = await this.repository.deleteOne(id);
+
+        return response;
+    }
 }

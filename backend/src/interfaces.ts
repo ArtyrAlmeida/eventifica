@@ -1,8 +1,9 @@
 interface EventInterface {
-    id?: number,
+    _id?: string,
     name: string,
-    date: Date,
-    city: string,
+    initialDate: Date,
+    finalDate: Date,
+    description: string,
     position: Point,
 }
 
