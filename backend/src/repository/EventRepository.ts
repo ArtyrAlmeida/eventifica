@@ -21,7 +21,7 @@ export default class EventRepository {
     }
 
     async findByText(text: string) {
-        const result = await Event.find({ $text: { $search: text } });
+        const result = await Event.find({ $text: { $search: text } }, { _id: true, __v: false });
 
         return result;
     }

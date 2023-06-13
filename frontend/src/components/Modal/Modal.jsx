@@ -27,6 +27,7 @@ const Modal = (props) => {
         descricaoRef.current.value = '';
         dataInicialRef.current.value = '';
         dataFinalRef.current.value = '';
+        props.onFormCancel();
     };
 
     return (
@@ -35,13 +36,13 @@ const Modal = (props) => {
             <div className="creationModal">
                 <form onSubmit={handleSubmit} >
                     <h2 className="modal-title">Criar Evento</h2>
-                    <Input className="form-control" label={'Nome do Evento'} input={{ type: 'text', id: 'nome' }} ref={nomeRef}/>
+                    <Input label={'Nome do Evento'} input={{ type: 'text', id: 'nome' }} ref={nomeRef}/>
                     <Input label={'Descrição'} input={{ type: 'text', id: 'descricao' }} ref={descricaoRef}/>
                     <Input label={'Data Inicial'} input={{ type: 'date', id: 'data' }} ref={dataInicialRef}/>
                     <Input label={'Data Final'} input={{ type: 'date', id: 'data' }} ref={dataFinalRef}/>
                     <div className="btn-group-toggle">
-                        <button className="btn btn-primary" type='submit' >Criar Evento</button>
-                        <button className="btn btn-secondary" type='button' onClick={handleCancel} text='Cancelar'>Cancelar</button>
+                        <button className="btn btn-primary mt-3 me-3" type='submit' >Criar Evento</button>
+                        <button className="btn btn-secondary mt-3" type='button' onClick={handleCancel} text='Cancelar'>Cancelar</button>
                     </div>
                 </form>
             </div>

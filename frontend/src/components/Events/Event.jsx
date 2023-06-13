@@ -26,7 +26,7 @@ const Event = (props) => {
                 <p>{props.position.coordinates[1].toFixed(4)}</p>
             </div>
             <div className='card-footer'>
-                <span className='btn btn-danger' onClick={handleDelete}>
+                <span className='btn btn-danger me-3' onClick={handleDelete}>
                     Deletar
                 </span>
                 <Link to={'/atualizarEventos'} state={{event: props}}>

@@ -33,7 +33,7 @@ const eventSchema = new Schema<EventInterface>({
     }
 });
 
-eventSchema.index({ name: 'text', city: 'text' }, { default_language: 'pt' })
+eventSchema.index({ name: 'text', description: 'text' }, { default_language: 'pt', weights: { name: 2, description: 1 } })
 
 const Event = mongoose.model("Events", eventSchema);
 
