@@ -15,10 +15,14 @@ interface Point {
 
 interface UserInterface {
     _id?: string,
-    name: string,
     email: string,
     password: string,
     role: 'ADMIN' | 'REGULAR'
 }
 
-export { EventInterface, UserInterface, Point };
+interface LoginInfo {
+    email: string,
+    password: string,
+}
+
+export { EventInterface, UserInterface, LoginInfo, Point };
