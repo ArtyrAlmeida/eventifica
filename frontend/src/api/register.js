@@ -1,10 +1,11 @@
-const createUser = async (user) => {
-    const response = await fetch('http://localhost:3030/register', {
+const registerUser = async (user) => {
+    console.log(user)
+    const response = await fetch(`http://localhost:3030/user/register`, {
         method: 'POST',
-        body: JSON.stringify(user),
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify(user)
     });
     console.log(response)
     if(response.ok) {
@@ -14,3 +15,5 @@ const createUser = async (user) => {
 
     return null;
 };
+
+export {registerUser}

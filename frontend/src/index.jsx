@@ -9,15 +9,14 @@ import { AuthProvider } from 'react-auth-kit';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <EventContextProvider>
-      <AuthProvider
-        authType='cookies'
-        authName='_auth'
-        cookieDomain={window.location.hostname}
-        cookieSecure={false}
-      >
+    <AuthProvider
+      authType='localstorage'
+      authName='autenticacao'
+    >
+      <EventContextProvider>
+
         <App />
-      </AuthProvider>
-    </EventContextProvider>
+      </EventContextProvider>
+    </AuthProvider>
   </React.StrictMode>
 );

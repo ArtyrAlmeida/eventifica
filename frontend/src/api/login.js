@@ -1,7 +1,10 @@
 const loginUser = async (user) => {
-    const response = await fetch(`http://localhost:3030/login/${user.id}`, {
+    const response = await fetch(`http://localhost:3030/user/login`, {
         method: 'POST',
-        body: user
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
     });
     console.log(response)
     if(response.ok) {

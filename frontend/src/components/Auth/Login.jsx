@@ -1,32 +1,50 @@
-/* import { useSignIn } from "react-auth-kit"; */
-/* import { loginUser } from "../../api/login"; */
+import { useRef } from "react"
 import { Input } from "../Input/Input"
+import { loginUser } from "../../api/login"
+import { useSignIn } from "react-auth-kit"
+import { Link } from "react-router-dom"
 
 const Login = () => {
+    const signIn = useSignIn();
 
-/*     const signIn = useSignIn(); */
+    const emailRef = useRef()
+    const passwordRef = useRef()
 
-    const handleLogin = async (event) => {
-        try{
-/*             const response = await loginUser({}) */
-            console.log(event)
-/*             signIn({
+    const handleRegister = async (event) => {
+        event.preventDefault()
+        try {
+            const userData = {
+                email: emailRef.current.value,
+                password: passwordRef.current.value,
+            }
+
+            const response = await loginUser(userData)
+            signIn({
                 token: response.data.token,
-                expiresIn: 360000,
+                expiresIn: 4320,
                 tokenType: 'Bearer',
-                authState: { email: event.email}
-            }) */
-            return console.log("try")
-        }catch(error) {
+                authState: { email: event.email, role: response.role }
+            })
+
+            return console.log(response)
+        } catch (error) {
             return console.log(error)
         }
     }
 
-    return(
-        <form onSubmit={handleLogin}>
-            <Input label={'Email'} input={{ type: 'email', id: 'email' }}></Input>
-            <Input label={'Senha'} input={{ type: 'password', id: 'password' }}></Input>
-            <button type="submit"></button>
+
+    return (
+        <form onSubmit={handleRegister}>
+            <Input label={'Email'} input={{ type: 'email', id: 'email' }} ref={emailRef}></Input>
+            <Input label={'Senha'} input={{ type: 'password', id: 'password' }} ref={passwordRef}></Input>
+            <Link to={'/register'} >
+                <span className='btn btn-info'>
+                    Registrar
+                </span>
+            </Link>
+            <button type="submit">Login</button>
         </form>
     )
 }
+
+export { Login }

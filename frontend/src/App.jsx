@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./components/Home/Home";
 import { UpdateEvent } from "./components/Events/UpdateEvent";
-/* import { RequireAuth } from "react-auth-kit"; */
+import { Login } from "./components/Auth/Login";
+import { Registration } from "./components/Auth/Registration";
+import { RequireAuth } from "react-auth-kit";
 
 function App() {
   return (
@@ -10,18 +12,28 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<Home />}
+            element={
+              <RequireAuth loginPath="/login">
+                <Home />
+              </RequireAuth>
+          }
+          />
+          <Route
+            path="/login"
+            element={<Login/>}
+          />
+          <Route
+            path="/register"
+            element={<Registration/>}
           />
           <Route
             path="/atualizarEventos"
             element= {
-            /*<RequireAuth loginPath="/login">
+            <RequireAuth loginPath="/login">
               <UpdateEvent/>
-            </RequireAuth> */
-            <UpdateEvent/>
+            </RequireAuth>
           }
           />
-          {/* <Route path="/login" element={<Login/>}/> */}
         </Routes>
       </BrowserRouter>
     </div>
