@@ -1,9 +1,9 @@
 import path from 'path';
 import { connect } from 'mongoose';
 
-const { MONGO_USER, MONGO_PASS, MONGO_HOST, MONGO_PORT, MONGO_NAME } = process.env;
+const { DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME } = process.env;
 
-const connectionUri = `mongodb://${MONGO_USER}:${MONGO_PASS}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_NAME}?authSource=admin`;
+const connectionUri = `mongodb://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=admin`;
 console.log(connectionUri);
 
 
