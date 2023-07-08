@@ -28,7 +28,7 @@ export default class UserService {
             throw new RequestError('O usuário não existe', 400)
         }
 
-        const match = await bcrypt.compare(dbUser.password, user.password);
+        const match = await bcrypt.compare(user.password, dbUser.password);
 
         if(match) {
             const { email, role } = dbUser;
