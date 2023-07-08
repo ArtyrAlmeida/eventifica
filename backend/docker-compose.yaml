@@ -9,6 +9,19 @@ services:
       MONGO_INITDB_ROOT_USERNAME: eventifica
       MONGO_INITDB_ROOT_PASSWORD: 123
       MONGO_INITDB_DATABASE: events 
+  neo4j:
+    image: neo4j
+    ports:
+      - 7888:7474
+      - 7999:7687
+    restart: unless-stopped
+    environment:
+      - NEO4J-AUTH=eventifica/123
+    volumes: 
+      - ./db/data:/data
+      - ./db/conf:/conf
+      - ./db/logs:/logs
+      - ./db/plugins:/plugins
   app:
     build: .
     environment:
@@ -24,5 +37,7 @@ services:
       - .:/usr/app
     links:
       - mongo
+      - neo4j
     depends_on:
       - mongo
+      - neo4j
