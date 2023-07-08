@@ -4,8 +4,23 @@ import { UpdateEvent } from "./components/Events/UpdateEvent";
 import { Login } from "./components/Auth/Login";
 import { Registration } from "./components/Auth/Registration";
 import { RequireAuth } from "react-auth-kit";
+import { useEffect, useState } from "react";
+import { EventList } from "./components/Events/EventList";
+import { Error } from "./components/Error/Error";
 
 function App() {
+  const [authState, setAuthState] = useState({
+    email: '',
+    role: ''
+  })
+
+  useEffect(() => {
+    const authState = JSON.parse(localStorage.getItem("autenticacao_state"))
+    if(authState) {
+      setAuthState(authState)
+    }
+  }, [])
+
   return (
     <div>
       <BrowserRouter>
@@ -14,7 +29,7 @@ function App() {
             path="/"
             element={
               <RequireAuth loginPath="/login">
-                <Home />
+                {authState.role == 'REGULAR' ? <EventList/> : <Home />}
               </RequireAuth>
           }
           />
@@ -30,7 +45,7 @@ function App() {
             path="/atualizarEventos"
             element= {
             <RequireAuth loginPath="/login">
-              <UpdateEvent/>
+              {authState.role == 'ADMIN' ? <UpdateEvent/> : <Error/>}
             </RequireAuth>
           }
           />

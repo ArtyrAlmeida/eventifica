@@ -10,7 +10,7 @@ const Login = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
 
-    const handleRegister = async (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault()
         try {
             const userData = {
@@ -19,11 +19,12 @@ const Login = () => {
             }
 
             const response = await loginUser(userData)
+            console.log(response)
             signIn({
-                token: response.data.token,
+                token: response.token,
                 expiresIn: 4320,
                 tokenType: 'Bearer',
-                authState: { email: event.email, role: response.role }
+                authState: { email: response.email, role: response.role }
             })
 
             return console.log(response)
@@ -34,7 +35,7 @@ const Login = () => {
 
 
     return (
-        <form onSubmit={handleRegister}>
+        <form onSubmit={handleLogin}>
             <Input label={'Email'} input={{ type: 'email', id: 'email' }} ref={emailRef}></Input>
             <Input label={'Senha'} input={{ type: 'password', id: 'password' }} ref={passwordRef}></Input>
             <Link to={'/register'} >
