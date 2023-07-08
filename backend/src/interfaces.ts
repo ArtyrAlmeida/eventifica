@@ -13,16 +13,4 @@ interface Point {
     crs?: object,
 }
 
-interface UserInterface {
-    _id?: string,
-    email: string,
-    password: string,
-    role: 'ADMIN' | 'REGULAR'
-}
-
-interface LoginInfo {
-    email: string,
-    password: string,
-}
-
-export { EventInterface, UserInterface, LoginInfo, Point };
+export { EventInterface, Point };

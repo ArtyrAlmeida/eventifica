@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { eventsRouter, userRouter } from './routes/router';
+import { eventsRouter } from './routes/routes';
 import connectDb from './database/database';
 import cors from 'cors';
 
@@ -13,7 +13,6 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/events', eventsRouter);
-app.use('/user', userRouter);
 
 connectDb();
 
