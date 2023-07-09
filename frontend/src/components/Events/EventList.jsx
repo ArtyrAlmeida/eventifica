@@ -5,14 +5,33 @@ import { useEventContext } from '../../hooks/useEventContext';
 
 import './EventList.css';
 import { textSearchEvent } from '../../api/const textSearch';
+import { getRecomendedEvents } from '../../api/getRecomendedEvents';
 
 const EventList = () => {
 
-    const { events, dispatch } = useEventContext();
+    const { events, recomendedEvents, dispatch } = useEventContext();
 
     const [search, setSearch] = useState('');
+    const [authState, setAuthState] = useState({
+        email: '',
+        role: '',
+        id: '',
+    })
 
     useEffect(() => {
+        const authState = JSON.parse(localStorage.getItem("autenticacao_state"))
+        if (authState) {
+            setAuthState(authState)
+        }
+    }, [])
+
+    useEffect(() => {
+        
+        getRecomendedEvents(authState.id).then((events) => {
+            dispatch({ type: "SET_RECOMENDATIONS", payload: events })
+        })
+
+
         const identifier = setTimeout(() => {
             if (search === '') {
                 console.log('diferente');
@@ -40,6 +59,20 @@ const EventList = () => {
             </div>
             <div className='list'>
                 {events && events.map((event) => {
+                    return (
+                        <Event
+                            key={event._id}
+                            name={event.name}
+                            description={event.description}
+                            initialDate={event.initialDate}
+                            finalDate={event.finalDate}
+                            position={event.position}
+                            eventID={event._id}
+                        />
+                    );
+                })}
+                <h3>Eventos Recomendados:</h3>
+                {recomendedEvents && recomendedEvents.map((event) => {
                     return (
                         <Event
                             key={event._id}

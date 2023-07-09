@@ -11,7 +11,8 @@ import { Error } from "./components/Error/Error";
 function App() {
   const [authState, setAuthState] = useState({
     email: '',
-    role: ''
+    role: '',
+    id: '',
   })
 
   useEffect(() => {

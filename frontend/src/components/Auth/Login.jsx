@@ -19,12 +19,11 @@ const Login = () => {
             }
 
             const response = await loginUser(userData)
-            console.log(response)
             signIn({
                 token: response.token,
                 expiresIn: 4320,
                 tokenType: 'Bearer',
-                authState: { email: response.email, role: response.role }
+                authState: { email: response.email, role: response.role, id: response.id }
             })
 
             return console.log(response)

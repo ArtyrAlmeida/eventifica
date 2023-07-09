@@ -16,12 +16,16 @@ function EventReducer(state, action) {
       return {
         events: state.events.filter((event) => event._id !== action.payload)
       };
+    case "SET_RECOMENDATIONS":
+      return {
+        recomendedEvents: action.payload
+      }
     default: return state
   }
 }
 
 function EventContextProvider({ children }) {
-  const [state, dispatch] = useReducer(EventReducer, { events: null });
+  const [state, dispatch] = useReducer(EventReducer, { events: null, recomendedEvents: null});
 
   return <EventContext.Provider value={{...state,dispatch}}>
     {children}
