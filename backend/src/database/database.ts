@@ -1,7 +1,7 @@
 import { connect } from 'mongoose';
 import neo4j from 'neo4j-driver';
 
-const driver = neo4j.driver('neo4j://localhost', neo4j.auth.basic('eventifica', '123'));
+const driver = neo4j.driver('bolt://neo4j:7687', neo4j.auth.basic('neo4j', 'eventifica'));
 
 const { MONGO_USER, MONGO_PASS, MONGO_HOST, MONGO_PORT, MONGO_NAME } = process.env;
 

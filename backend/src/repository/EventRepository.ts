@@ -1,9 +1,18 @@
+import { getNeo4jSession } from '../database/database';
 import { EventInterface } from '../interfaces';
 import Event from '../models/event';
 
 export default class EventRepository {
     async create(event: EventInterface) {
         const createdEvent = await Event.create({...event});
+
+        const session = getNeo4jSession();
+
+        await session.run('CREATE (:Event{id:$id})',{
+            id: createdEvent._id.toString()
+        }).then(() => console.log("Event created in neo4j"));
+
+        session.close();
         
         return createdEvent;
     }
