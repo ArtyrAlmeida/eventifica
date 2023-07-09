@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { eventsRouter, userRouter } from './routes/router';
-import connectDb from './database/database';
+import{ connectMongo } from './database/database';
 import cors from 'cors';
 
 const app = express();
@@ -15,6 +15,6 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/events', eventsRouter);
 app.use('/user', userRouter);
 
-connectDb();
+connectMongo();
 
 export { app };
