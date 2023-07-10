@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { deleteEvent } from '../../api/deleteEvent';
 import { useEventContext } from '../../hooks/useEventContext';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { subscribeInEvent } from '../../api/subscribeInEvent';
 
 const Event = (props) => {
