@@ -1,6 +1,6 @@
 import { log } from "console";
 import { getNeo4jSession } from "../database/database";
-import { UserInterface } from "../interfaces";
+import { SubscribeOptions, UserInterface } from "../interfaces";
 import User from "../models/user";
 
 
@@ -25,6 +25,16 @@ export default class UserRepository {
         const result = await User.findOne({ email });
 
         return result;
+    }
+
+    async subscribe(subscribeOptions: SubscribeOptions) {
+        const session = getNeo4jSession();
+
+        await session.run(`MATCH (user:User{id:"${subscribeOptions.userId}"})
+        OPTIONAL MATCH (event:Event{id:"${subscribeOptions.eventId}"})
+        CREATE (user)-[:SUBSCRIBED]->(event)`);
+
+        session.close();
     }
 
 }

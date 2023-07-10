@@ -25,4 +25,9 @@ interface LoginInfo {
     password: string,
 }
 
-export { EventInterface, UserInterface, LoginInfo, Point };
+interface SubscribeOptions {
+    userId: string,
+    eventId: string,
+}
+
+export { EventInterface, UserInterface, LoginInfo, Point, SubscribeOptions };

@@ -2,6 +2,7 @@ import { Router } from 'express';
 import EventController from '../controllers/EventController';
 import requireAdminAuth from '../middleware/requireAdminAuth';
 import { UserController } from '../controllers/UserController';
+import requireBasicAuth from '../middleware/requireBasicAuth';
 
 const eventsRouter = Router();
 const eventController = new EventController();
@@ -18,5 +19,6 @@ const userController = new UserController();
 
 userRouter.post('/login', userController.login);
 userRouter.post('/register', userController.register);
+userRouter.post('/subscribe', userController.subscribe);
 
 export { eventsRouter, userRouter };

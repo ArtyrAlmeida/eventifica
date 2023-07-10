@@ -20,10 +20,21 @@ export class UserController {
         const user = req.body;
         try {
             const response = await this.service.login(user);
-            res.status(201).json(response);
+            res.status(200).json(response);
         } catch (error) {
             const requestError = error as RequestError;
             res.status(requestError.code || 400).json({ error: requestError.message });
         }
     };
+
+    subscribe = async (req: Request, res: Response) => {
+        const subscribeOptions = req.body;
+        try {
+            await this.service.subscribe(subscribeOptions);
+            res.status(200).send();
+        } catch (error) {
+            const requestError = error as RequestError;
+            res.status(requestError.code || 400).json({ error: requestError.message });
+        }
+    }
 }
