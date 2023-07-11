@@ -19,14 +19,14 @@ const Login = () => {
             }
 
             const response = await loginUser(userData)
-            signIn({
+            await signIn({
                 token: response.token,
                 expiresIn: 4320,
                 tokenType: 'Bearer',
                 authState: { email: response.email, role: response.role, id: response.id }
             })
 
-            return console.log(response)
+            window.location.assign("http://localhost:3000/")
         } catch (error) {
             return console.log(error)
         }
