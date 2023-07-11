@@ -16,6 +16,10 @@ const userSchema = new Schema<UserInterface>({
     role: {
         type: String,
         required: true
+    },
+    events: {
+        type: Array,
+        required: false,
     }
 });
 

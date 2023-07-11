@@ -1,10 +1,11 @@
 const addEvent = async (event) => {
-    console.log('evento Recebido: ',event);
+    const authToken = localStorage.getItem("autenticacao")
     const response = await fetch('http://localhost:3030/events', {
         method: 'POST',
         body: JSON.stringify(event),
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'authorization': `${authToken}`
         }
     });
     console.log(response)

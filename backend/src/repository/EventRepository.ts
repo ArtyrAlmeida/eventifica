@@ -1,6 +1,7 @@
 import { getNeo4jSession } from '../database/database';
 import { EventInterface } from '../interfaces';
 import Event from '../models/event';
+import { Types } from 'mongoose';
 
 export default class EventRepository {
     async create(event: EventInterface) {
@@ -45,5 +46,41 @@ export default class EventRepository {
         const result = await Event.deleteOne({ _id: id });
 
         return result;
+    }
+
+    async findRecommendations(userId: string) {
+        console.log("Entrou no repository");
+        const session = getNeo4jSession();
+        console.log("obteve sessao");
+        
+        
+        const result = await session.run(
+            `MATCH (user:User {id: "${userId}"})-[:SUBSCRIBED]->(e)<-[:SUBSCRIBED]-(relatedUsers),
+            (relatedUsers)-[:SUBSCRIBED]->(events) WHERE NOT (user)-[:SUBSCRIBED]->(events)
+            RETURN events
+        `);
+
+        const idArray: Types.ObjectId[] = [];
+
+        result.records.forEach((record: any) => {
+            const id = record._fields[0].properties.id as string;
+            let exists = false;
+            idArray.forEach(objectId => {
+                exists = objectId.toString() === id;
+            })
+            if (!exists) idArray.push(new Types.ObjectId(id));
+        });
+        
+        const events = await Event.aggregate([
+            {
+                $match: {
+                    _id: { $in: idArray },
+                },
+            },
+        ]);
+        
+        session.close();
+
+        return events;
     }
 }

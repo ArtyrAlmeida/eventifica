@@ -25,6 +25,18 @@ const Map = () => {
   const [currentPoint, setCurrentPoint] = useState();
   const [isModalActive, setIsModalActive] = useState(false);
   const { events, dispatch } = useEventContext();
+  const [authState, setAuthState] = useState({
+    email: '',
+    role: '',
+    id: '',
+  })
+
+  useEffect(() => {
+    const authState = JSON.parse(localStorage.getItem("autenticacao_state"))
+    if(authState){
+        setAuthState(authState)
+    }
+},[])
 
   useEffect(()=> {
     getEventInfo().then((points) => {
@@ -48,6 +60,7 @@ const Map = () => {
     const eventMarker = {
       ...formData,
       ...currentPoint,
+      email: authState.email
     }
 
     const response = await addEvent(eventMarker);

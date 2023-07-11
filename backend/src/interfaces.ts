@@ -17,7 +17,8 @@ interface UserInterface {
     _id?: string,
     email: string,
     password: string,
-    role: 'ADMIN' | 'REGULAR'
+    role: 'ADMIN' | 'REGULAR',
+    events?: string[],
 }
 
 interface LoginInfo {

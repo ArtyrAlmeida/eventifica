@@ -62,4 +62,14 @@ export default class EventService {
 
         return response;
     }
+
+    findRecommendations = async (userId: string) => {
+        if (!EventValidator.isValidId(userId)) {
+            throw new RequestError('O id provido é inválido', 400);
+        }
+
+        const events = await this.repository.findRecommendations(userId);
+
+        return events;
+    }
 }

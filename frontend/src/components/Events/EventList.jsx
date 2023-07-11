@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { getEventInfo } from '../../api/getEvent';
 import { Event } from "./Event";
 import { useEventContext } from '../../hooks/useEventContext';
+import { useRecomendedEventContext } from '../../hooks/useRecomendationContext';
 
 import './EventList.css';
 import { textSearchEvent } from '../../api/const textSearch';
@@ -9,7 +10,8 @@ import { getRecomendedEvents } from '../../api/getRecomendedEvents';
 
 const EventList = () => {
 
-    const { events, recomendedEvents, dispatch } = useEventContext();
+    const { events, dispatch } = useEventContext();
+    const { recomendedEvents, recomendedEventDispatch } = useRecomendedEventContext();
 
     const [search, setSearch] = useState('');
     const [authState, setAuthState] = useState({
@@ -26,12 +28,6 @@ const EventList = () => {
     }, [])
 
     useEffect(() => {
-        
-        getRecomendedEvents(authState.id).then((events) => {
-            dispatch({ type: "SET_RECOMENDATIONS", payload: events })
-        })
-
-
         const identifier = setTimeout(() => {
             if (search === '') {
                 console.log('diferente');
@@ -52,6 +48,23 @@ const EventList = () => {
         };
     }, [search, dispatch]);
 
+    useEffect(() => {
+        if(authState.id != '') {
+            getRecomendedEvents(authState.id).then((events) => {
+                recomendedEventDispatch({ type: "SET_RECOMENDATIONS", payload: events })
+            })
+        }
+    }, [recomendedEventDispatch, authState.id])
+
+    const updateRecomendedUsers = async () => {
+        if(authState.id != '') {
+            const newEvents = await getRecomendedEvents(authState.id)
+            recomendedEventDispatch({ type: "SET_RECOMENDATIONS", payload: newEvents })
+        }else{
+            recomendedEventDispatch({ type: "SET_RECOMENDATIONS", payload: recomendedEvents })
+        }
+    }
+
     return (
         <div>
             <div className='text-search'>
@@ -68,7 +81,7 @@ const EventList = () => {
                             finalDate={event.finalDate}
                             position={event.position}
                             eventID={event._id}
-                        />
+                            onHandleSubscription={updateRecomendedUsers}/>
                     );
                 })}
                 <h3>Eventos Recomendados:</h3>

@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
 import App from './App';
 import { EventContextProvider } from './context/EventContext';
+import { RecommendedEventContextProvider } from './context/RecomendationContext';
 import { AuthProvider } from 'react-auth-kit';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,8 +15,9 @@ root.render(
       authName='autenticacao'
     >
       <EventContextProvider>
-
-        <App />
+        <RecommendedEventContextProvider>
+          <App />
+        </RecommendedEventContextProvider>
       </EventContextProvider>
     </AuthProvider>
   </React.StrictMode>

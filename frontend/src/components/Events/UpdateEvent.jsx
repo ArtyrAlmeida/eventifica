@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Input } from "../Input/Input";
 import { updateEvent } from "../../api/updateEvent";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,6 +7,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './UpdateEvent.css'
 
 const UpdateEvent = () => {
+
+    const [authState, setAuthState] = useState({
+        email: '',
+        role: '',
+        id: '',
+      })
+
+    useEffect(() => {
+        const authState = JSON.parse(localStorage.getItem("autenticacao_state"))
+        if(authState){
+            setAuthState(authState)
+        }
+    },[])
+
     const location = useLocation();
     console.log("Evento no update", location.state.event);
     const { event } = location.state;
@@ -22,7 +36,8 @@ const UpdateEvent = () => {
             name: nomeRef.current.value,
             description: descricaoRef.current.value,
             initialdate: dataInicialRef.current.value,
-            finalDate: dataFinalRef.current.value
+            finalDate: dataFinalRef.current.value,
+            email: authState.email
         }
         const response = await updateEvent(updatedEventData);
         console.log(response)

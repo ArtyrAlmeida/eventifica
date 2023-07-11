@@ -13,6 +13,7 @@ eventsRouter.get('/search/:text', eventController.findByText);
 eventsRouter.post('/', requireAdminAuth, eventController.create);
 eventsRouter.patch('/:id', requireAdminAuth, eventController.updateOne);
 eventsRouter.delete('/:id', requireAdminAuth, eventController.deleteOne);
+eventsRouter.get('/r/:id', requireBasicAuth, eventController.findRecommendations);
 
 const userRouter = Router();
 const userController = new UserController();

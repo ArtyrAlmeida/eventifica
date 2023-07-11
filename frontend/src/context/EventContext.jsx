@@ -16,10 +16,6 @@ function EventReducer(state, action) {
       return {
         events: state.events.filter((event) => event._id !== action.payload)
       };
-    case "SET_RECOMENDATIONS":
-      return {
-        recomendedEvents: action.payload
-      }
     default: return state
   }
 }

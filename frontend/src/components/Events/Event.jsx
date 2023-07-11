@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { deleteEvent } from '../../api/deleteEvent';
 import { useEventContext } from '../../hooks/useEventContext';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { subscribeInEvent } from '../../api/subscribeInEvent';
 
 const Event = (props) => {
@@ -23,13 +23,14 @@ const Event = (props) => {
     }, [])
 
     const handleDelete = async () => {
-        await deleteEvent(props.eventID)
+        await deleteEvent(props.eventID, authState.email)
         dispatch({ type: "DELETE_EVENT", payload: props.eventID })
     }
 
     const handleSubscription = async () => {
-        await subscribeInEvent(authState.id, props.eventID)
+        const result = await subscribeInEvent(authState.id, props.eventID)
         setIsSubscribed(true)
+        props.onHandleSubscription(result)
     }
 
     return (

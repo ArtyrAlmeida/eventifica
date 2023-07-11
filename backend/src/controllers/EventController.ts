@@ -65,7 +65,6 @@ export default class EventController {
 
     deleteOne = async (req: Request, res: Response) => {
         const { id } = req.params;
-        const { payload } = req.body;
         
         try {
             const response = await this.service.deleteOne(id);
@@ -75,4 +74,19 @@ export default class EventController {
             res.status(requestError.code || 400).json({ error: requestError.message });
         }
     };
+
+    findRecommendations = async (req: Request, res: Response) => {
+        const { id } = req.params;
+
+        try {
+            const response = await this.service.findRecommendations(id);
+            res.status(200).json(response);
+        } catch (error) {
+            console.log('Tentou enviar')
+            console.log(error);
+            
+            //const requestError = error as RequestError;
+            //res.status(requestError.code || 400).json({ error: requestError.message });
+        }
+    }
 }
