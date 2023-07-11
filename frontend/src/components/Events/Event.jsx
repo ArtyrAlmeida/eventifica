@@ -7,6 +7,7 @@ import { subscribeInEvent } from '../../api/subscribeInEvent';
 const Event = (props) => {
 
     const { dispatch } = useEventContext();
+    const {description, eventID, finalDate, initialDate, key, name} = props
 
     const [authState, setAuthState] = useState({
         email: '',
@@ -51,7 +52,7 @@ const Event = (props) => {
                         <span className='btn btn-danger me-3' onClick={handleDelete}>
                             Deletar
                         </span>
-                        <Link to={'/atualizarEventos'} state={{ event: props }}>
+                        <Link to={'/atualizarEventos'} state={{event: {description, eventID, finalDate, initialDate, key, name}}}>
                             <span className='btn btn-info'>
                                 Atualizar
                             </span>

@@ -46,7 +46,7 @@ function App() {
             path="/atualizarEventos"
             element= {
             <RequireAuth loginPath="/login">
-              {authState.role == 'ADMIN' ? <UpdateEvent/> : <Error/>}
+              {authState.role === 'ADMIN' ? <UpdateEvent/> : <Error/>}
             </RequireAuth>
           }
           />

@@ -22,7 +22,6 @@ const UpdateEvent = () => {
     },[])
 
     const location = useLocation();
-    console.log("Evento no update", location.state.event);
     const { event } = location.state;
     const nomeRef = useRef(event.name);
     const descricaoRef = useRef(event.description);
